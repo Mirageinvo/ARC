@@ -8,6 +8,6 @@ struct node {
 }
 
 add_to_list(int data, int* adress) {};
-delet_from_list(int data, int* adress) {};
+delete_from_list(int data, int* adress) {};
 length_of(int *adress) {};
 remove_from_cache(int *adress) {};
