@@ -11,8 +11,18 @@
 #include "header_for_hash.h"
 #include "header_for_ARC.h"
 
-static void REPLACE(long long p) {
-    
+static void REPLACE(long long p, int * T1,  int * T2, int * B2) {
+    int len = length_of(T1);
+    if ((len >= 1) && ((????? && len == p) || (len > p))) {
+        int * temp_adr = ???????;
+        delete_from_list(T1);
+        add_to_list(temp_adr, B1);
+    }
+    else {
+        int * temp_adr = ???????;
+        delete_from_list(T2);
+        add_to_list(temp_adr, B2);
+    }
 };
 
 void ARC () {
@@ -68,13 +78,26 @@ void ARC () {
         
         //hit in ARC and DBL
         
-        if (addr_of_page < B1 &&  addr_of_page >= T1)
+        if (???????) {
+            add_to_list(addr_of_page, T2);
+            delete_from_list(addr_of_page); //how to do this
+        };
         
         //hit in DBL miss in ARC
         
-        
+        if(??????) { //hit in B1
+            p = min(size_c, p + max(1, (len_b2 / len_b1)));
+            REPLACE(p);
+            add_to_list(addr_of_page, T2);
+            delete_from_list(addr_of_page);//how to do this
+        };
+        if (????) {
+            p = max(0, p - max((len_b1 / len_b2), 1));
+            REPLACE(p);
+            add_to_list(addr_of_page, T2);
+            delete_from_list(addr_of_page);//how to do this
+        };
     }
-    
 };
 
 
