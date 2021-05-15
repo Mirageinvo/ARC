@@ -1,3 +1,4 @@
 //ARC
 
-void A_R_C(FILE* f) {};
+#pragma once
+void ARC();
