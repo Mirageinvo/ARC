@@ -11,7 +11,7 @@
 #include "header_for_hash.h"
 #include "header_for_ARC.h"
 
-static void REPLACE(long long p, int * T1,  int * T2, int * B2) {
+static void REPLACE(long long p, int * T1,  int * T2, int *B1, int * B2) {
     int len = length_of(T1);
     if ((len >= 1) && ((????? && len == p) || (len > p))) {
         int * temp_adr = ???????;
@@ -61,7 +61,7 @@ void ARC () {
             if (len_l1  == size_c) {
                 if (len_t1 < size_c) {
                     delete_from_list(B1);
-                    REPLACE(p);
+                    REPLACE(p, T1, T2, B1, B2);
                 }
                 else {
                     delete_from_list(T1);
@@ -70,7 +70,7 @@ void ARC () {
             if (len_l1 < size_c && (len_l1 + len_l2) >= size_c) {
                 if (len_l1 + len_l2 == 2 * size_c)
                     delete_from_list(B2);
-                REPLACE(p);
+                REPLACE(p, T1, T2, B1, B2);
             };
             addr_of_page = create_hash(temp_page, sizeof(struct node)); // LOOK AT THIS! предлагаю сделать create_hash с такими входными параметрами, чтобы можно было делать маллок на определенный размер (потому что по идее хэш не знает про списки)
             add_to_list(addr_of_page, T1); // LOOK AT THIS! также предлагаю сделать вот такое добавление в список: адрес добавляемого элемента, затем в какой список добавляем. кстати, мне вручную здесь перевязать указатель на начало списка, или эта функция может вернуть новое значение указателя на голову списка. это не необходимо, но мне кажется, красиво.
@@ -87,13 +87,13 @@ void ARC () {
         
         if(??????) { //hit in B1
             p = min(size_c, p + max(1, (len_b2 / len_b1)));
-            REPLACE(p);
+            REPLACE(p, T1, T2, B1, B2);
             add_to_list(addr_of_page, T2);
             delete_from_list(addr_of_page);//how to do this
         };
         if (????) {
             p = max(0, p - max((len_b1 / len_b2), 1));
-            REPLACE(p);
+            REPLACE(p, T1, T2, B1, B2);
             add_to_list(addr_of_page, T2);
             delete_from_list(addr_of_page);//how to do this
         };
