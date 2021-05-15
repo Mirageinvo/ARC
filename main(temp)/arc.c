@@ -49,6 +49,15 @@ void ARC () {
     int len_t1, len_t2, len_b1, len_b2, len_l1, len_l2;
     int idx = -1;
     
+    T1 = NULL;
+    T2 = NULL;
+    B1 = NULL;
+    B2 = NULL;
+    p = 0;
+    addr_of_page = NULL;
+    
+    
+    
     //reading data
 
     int res = scanf("%d %d", &size_c, &quan_req);
@@ -58,7 +67,7 @@ void ARC () {
         int res = scanf(" %d", &temp_page);
         assert(res == 1);
         
-        addr_of_page = adr_of_page_hash (temp_page);
+        addr_of_page = adr_of_page_hash (temp_page); // hash! 
         
         len_t1 = length_of(T1);
         len_b1 = length_of(B1);
