@@ -13,22 +13,22 @@
 
 
 //special function used in ARC
-static void REPLACE(long long p, int * T1,  int * T2, int *B1, int * B2, int idx) {
+static void REPLACE(long long p, struct node * T1,  struct node * T2, struct node * B1, struct node * B2, int idx) {
     int len = length_of(T1);
     if ((len >= 1) && ((idx == 3 && len == p) || (len > p))) { // idx == 3 means x in B2
-        int * temp_adr = last_in_list(T1);
+        struct node * temp_adr = last_in_list(T1);
         delete_from_list(temp_adr);
-        add_to_list(temp_adr, B1);
+        add_to_list(*(temp_adr -> data), temp_adr, B1);
     }
     else {
-        int * temp_adr = last_in_list(T2);
+        struct node * temp_adr = last_in_list(T2);
         delete_from_list(temp_adr);
-        add_to_list(temp_adr, B2);
+        add_to_list(*(temp_adr -> data), temp_adr, B2);
     }
 };
 
 //return address of last node in list
-static int * last_in_list (int * node) {
+static struct node * last_in_list (struct node * node) {
     if (*(node -> next) == NULL)
         return node;
     node = *(node -> next);
@@ -41,9 +41,9 @@ void ARC () {
     long long size_c; //size of cashe
     long long quan_req; //quantity of requests
     long long p; //very important parameter of system)
-    int * T1, T2, B1, B2; //pointers to top of LRU1, top of LRU2, bottom of LRU1, bottom of LRU2
+    struct node * T1, T2, B1, B2; //pointers to top of LRU1, top of LRU2, bottom of LRU1, bottom of LRU2
     int temp_page;
-    int * addr_of_page;
+    struct node * addr_of_page;
     int len_t1, len_t2, len_b1, len_b2, len_l1, len_l2;
     int idx = -1;
     
@@ -83,17 +83,17 @@ void ARC () {
                 REPLACE(p, T1, T2, B1, B2, idx);
             };
             addr_of_page = create_hash(temp_page, sizeof(struct node)); // LOOK AT THIS! предлагаю сделать create_hash с такими входными параметрами, чтобы можно было делать маллок на определенный размер (потому что по идее хэш не знает про списки)
-            add_to_list(addr_of_page, T1); // LOOK AT THIS! также предлагаю сделать вот такое добавление в список: адрес добавляемого элемента, затем в какой список добавляем. кстати, мне вручную здесь перевязать указатель на начало списка, или эта функция может вернуть новое значение указателя на голову списка. это не необходимо, но мне кажется, красиво.
+            add_to_list(temp_page, addr_of_page, T1); // LOOK AT THIS! также предлагаю сделать вот такое добавление в список: адрес добавляемого элемента, затем в какой список добавляем. кстати, мне вручную здесь перевязать указатель на начало списка, или эта функция может вернуть новое значение указателя на голову списка. это не необходимо, но мне кажется, красиво.
             continue;
         };
         
         //hit in ARC and DBL
         
         assert(addr_of_page != NULL);
-        idx = *(addr_of_page -> idx_of_list); //will it work? don't know, not sure
+        idx = *(addr_of_page -> idx_of_list); //will it work? don't know, not sure. now must work
         
         if (idx == 0 || idx == 1) {
-            add_to_list(addr_of_page, T2);
+            add_to_list(temp_page, addr_of_page, T2);
             delete_from_list(addr_of_page); //OK
             continue;
         };
@@ -103,14 +103,14 @@ void ARC () {
         if(idx == 2) { //hit in B1
             p = min(size_c, p + max(1, (len_b2 / len_b1)));
             REPLACE(p, T1, T2, B1, B2, idx);
-            add_to_list(addr_of_page, T2);
+            add_to_list(temp_page, addr_of_page, T2);
             delete_from_list(addr_of_page);//OK
             continue;
         };
         if (idx == 3) { //hit in B2
             p = max(0, p - max((len_b1 / len_b2), 1));
             REPLACE(p, T1, T2, B1, B2, idx);
-            add_to_list(addr_of_page, T2);
+            add_to_list(temp_page, addr_of_page, T2);
             delete_from_list(addr_of_page);//OK
             continue;
         };
