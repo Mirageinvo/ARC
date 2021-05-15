@@ -19,13 +19,13 @@ static void REPLACE(long long p, struct node * T1,  struct node * T2, struct nod
         struct node * temp_adr = last_in_list(T1);
         delete_from_list(temp_adr);
         //delete pointer to this page
-        B1 = add_to_list(*(temp_adr -> data), temp_adr, B1);
+        B1 = add_to_list(temp_adr, B1);
     }
     else {
         struct node * temp_adr = last_in_list(T2);
         delete_from_list(temp_adr);
         //delete pointer to this page
-        B2 = add_to_list(*(temp_adr -> data), temp_adr, B2);
+        B2 = add_to_list(temp_adr, B2);
     }
 };
 
@@ -87,7 +87,7 @@ void ARC () {
                 REPLACE(p, T1, T2, B1, B2, idx);
             };
             addr_of_page = create_hash(temp_page, sizeof(struct node)); // make void pointers??
-            T1 = add_to_list(temp_page, addr_of_page, T1);
+            T1 = add_to_list(addr_of_page, T1);
             continue;
         };
         
@@ -97,7 +97,7 @@ void ARC () {
         idx = *(addr_of_page -> idx_of_list); //will it work? don't know, not sure. now must work
         
         if (idx == 0 || idx == 1) {
-            T2 = add_to_list(temp_page, addr_of_page, T2);
+            T2 = add_to_list(addr_of_page, T2);
             delete_from_list(addr_of_page); //OK
             continue;
         };
@@ -107,14 +107,14 @@ void ARC () {
         if(idx == 2) { //hit in B1
             p = min(size_c, p + max(1, (len_b2 / len_b1)));
             REPLACE(p, T1, T2, B1, B2, idx);
-            T2 = add_to_list(temp_page, addr_of_page, T2);
+            T2 = add_to_list(addr_of_page, T2);
             delete_from_list(addr_of_page);//OK
             continue;
         };
         if (idx == 3) { //hit in B2
             p = max(0, p - max((len_b1 / len_b2), 1));
             REPLACE(p, T1, T2, B1, B2, idx);
-            T2 = add_to_list(temp_page, addr_of_page, T2);
+            T2 = add_to_list(addr_of_page, T2);
             delete_from_list(addr_of_page);//OK
             continue;
         };
