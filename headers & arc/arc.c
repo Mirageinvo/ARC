@@ -11,6 +11,18 @@
 #include "header_for_hash.h"
 #include "header_for_ARC.h"
 
+//return address of last node in list
+static struct node * last_in_list (struct node* node) {
+    if (*(node -> next) == NULL)
+        return node;
+    node = *(node -> next);
+};
+
+//create correct node
+void correct_node(struct node *adr, int data, int idx) {
+    *(adr -> data) = data;
+    *(adr -> idx_of_list) = idx;
+}
 
 //special function used in ARC
 static void REPLACE(static struct node** hash_table, long long p, struct node * T1,  struct node * T2, struct node * B1, struct node * B2, int idx) {
@@ -19,26 +31,17 @@ static void REPLACE(static struct node** hash_table, long long p, struct node * 
         struct node * temp_adr = last_in_list(T1);
         T1 = delete_from_list(temp_adr);
         B1 = add_to_list(temp_adr, B1);
-        //delete pointer to this page
-        nulify(temp_adr, hash_table);
+        correct_node(temp_adr, *(temp_adr -> data), 2);
     }
     else {
         struct node * temp_adr = last_in_list(T2);
         T2 = delete_from_list(temp_adr);
         B2 = add_to_list(temp_adr, B2);
-        //delete pointer to this page
-        nulify(temp_adr, hash_table);
+        correct_node(temp_adr, *(temp_adr -> data), 3);
     }
 };
 
-//return address of last node in list
-static struct node * last_in_list (struct node * node) {
-    if (*(node -> next) == NULL)
-        return node;
-    node = *(node -> next);
-};
-
-void ARC (static struct node** hash_table) {
+int ARC (static struct node** hash_table) {
     
     //initialization
     
@@ -50,12 +53,14 @@ void ARC (static struct node** hash_table) {
     struct node * addr_of_page;
     int len_t1, len_t2, len_b1, len_b2, len_l1, len_l2;
     int idx = -1;
+    int number_of_hits;
     
     T1 = NULL;
     T2 = NULL;
     B1 = NULL;
     B2 = NULL;
     p = 0;
+    number_of_hits = 0;
     addr_of_page = NULL;
     
     //reading data
@@ -103,15 +108,15 @@ void ARC (static struct node** hash_table) {
                 REPLACE(hash_table, p, T1, T2, B1, B2, idx);
             };
             addr_of_page = create_el(temp_page, hash_table); // make void pointers???
-            //!!!!!!!!!!!!!!!!!
             T1 = add_to_list(addr_of_page, T1);
-            //!!!!!!!!!!!!!!!!!!!!!!
+            correct_node(addr_of_page, temp_page, 0);
             continue;
         };
         
         //hit in ARC and DBL
         
         assert(addr_of_page != NULL);
+        number_of_hits += 1;
         idx = *(addr_of_page -> idx_of_list);
         if (idx == 0 || idx == 1) {
             if (idx == 0)
@@ -119,6 +124,7 @@ void ARC (static struct node** hash_table) {
             else
                 T2 = delete_from_list(addr_of_page); //OK
             T2 = add_to_list(addr_of_page, T2);
+            correct_node(addr_of_page, temp_page, 1);
             continue;
         };
         
@@ -127,19 +133,22 @@ void ARC (static struct node** hash_table) {
         if(idx == 2) { //hit in B1
             p = min(size_c, p + max(1, (len_b2 / len_b1)));
             REPLACE(hash_table, p, T1, T2, B1, B2, idx);
+            B1 = delete_from_list(addr_of_page);
             T2 = add_to_list(addr_of_page, T2);
-            B1 = delete_from_list(addr_of_page);//OK
+            correct_node(addr_of_page, temp_page, 1);
             continue;
         };
         if (idx == 3) { //hit in B2
             p = max(0, p - max((len_b1 / len_b2), 1));
             REPLACE(hash_table, p, T1, T2, B1, B2, idx);
-            T2 = add_to_list(addr_of_page, T2);
             B2 = delete_from_list(addr_of_page);//OK
+            T2 = add_to_list(addr_of_page, T2);
+            correct_node(addr_of_page, temp, 1);
             continue;
         };
         
-    }
+    };
+    return number_of_hits;
 };
 
 
