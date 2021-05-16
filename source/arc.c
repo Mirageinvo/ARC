@@ -20,18 +20,18 @@ static struct node * last_in_list (struct node* node) {
 };
 
 //create correct node
-void correct_node(struct node *adr, int data, int idx) {
+static void correct_node(struct node *adr, int data, int idx) {
     (adr -> data) = data;
     (adr -> idx_of_list) = idx;
 };
 
-int max(int a, int b) {
+static int max(int a, int b) {
     if (a > b)
         return a;
     return b;
 };
 
-int min(int a, int b) {
+static int min(int a, int b) {
     if (a < b)
         return a;
     return b;
