@@ -102,7 +102,7 @@ int ARC (struct node** hash_table) {
         len_l1 = len_t1 + len_b1;
         len_l2 = len_t2 + len_b2;
 
-        int res = scanf(" %d", &temp_page);
+        res = scanf(" %d", &temp_page);
         assert(res == 1);
         
         if(temp_page < 0){
