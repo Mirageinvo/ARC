@@ -106,6 +106,10 @@ void free_hash(struct node** hash_table) {
   int i, const_from_nowhere = 23767001;
 
   for(i = 0; i < const_from_nowhere; ++i) {
+    if (hash_table[i] != NULL) {
+      free(hash_table[i]->next);
+      free(hash_table[i]->prev);
+    }
     free(hash_table[i]);
   }
 
