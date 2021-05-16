@@ -15,9 +15,8 @@ int hash_main() {
 */
 #pragma once
 
-void create_hash_table(int* hash_table);
+void create_hash_table(struct node** hash_table);
 int hash_for_idx(int page);
-int check(int page, int* hash_table);
-void nulify(int page, int* hash_table);
-int collision_check(int page, int* hash_table);
-int* hash_of_el (int page, int* hash_table);
+struct node* check(struct node* page, struct node** hash_table);
+void nulify(struct node* page, struct node** hash_table);
+void create_el (int page_val, struct node** hash_table);
