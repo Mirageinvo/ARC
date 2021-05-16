@@ -99,7 +99,6 @@ int ARC (struct node** hash_table) {
         len_b2 = length_of(B2);
         len_l1 = len_t1 + len_b1;
         len_l2 = len_t2 + len_b2;
-        printf("lengths %d %d %d %d %d\n", len_t1, len_t2, len_b1, len_b2, p);
 
         int res = scanf(" %d", &temp_page);
         assert(res == 1);
@@ -117,7 +116,7 @@ int ARC (struct node** hash_table) {
             if (len_l1  == size_c) {
                 if (len_t1 < size_c) {
                     temp = last_in_list(B1);
-                    B1 = delete_from_list(temp)
+                    B1 = delete_from_list(temp);
                     nulify(temp, hash_table);
                     REPLACE(hash_table, p, &T1, &T2, &B1, &B2, idx);
                 }
