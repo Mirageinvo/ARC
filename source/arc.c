@@ -72,6 +72,7 @@ int ARC (struct node** hash_table) {
     int len_t1, len_t2, len_b1, len_b2, len_l1, len_l2;
     int idx = -1;
     int number_of_hits;
+    int res = 2;
     long long i;
     
     T1 = NULL;
@@ -85,7 +86,7 @@ int ARC (struct node** hash_table) {
     
     //reading data
 
-    int res = scanf("%lld %lld", &size_c, &quan_req);
+    res = scanf("%lld %lld", &size_c, &quan_req);
     assert (res == 2);
     if(size_c < 0 || quan_req < 0){
         printf("Error! Invalid value of parameters!");
