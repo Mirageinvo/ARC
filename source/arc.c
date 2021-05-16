@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <assert.h>
+#include <stdlib.h>
 #include "header_for_list.h"
 #include "header_for_hash.h"
 #include "header_for_ARC.h"
@@ -22,10 +23,22 @@ static struct node * last_in_list (struct node* node) {
 void correct_node(struct node *adr, int data, int idx) {
     (adr -> data) = data;
     (adr -> idx_of_list) = idx;
-}
+};
+
+int max(int a, int b) {
+    if (a > b)
+        return a;
+    return b;
+};
+
+int min(int a, int b) {
+    if (a < b)
+        return a;
+    return b;
+};
 
 //special function used in ARC
-static void REPLACE(static struct node** hash_table, long long p, struct node * T1,  struct node * T2, struct node * B1, struct node * B2, int idx) {
+static void REPLACE(struct node** hash_table, long long p, struct node * T1,  struct node * T2, struct node * B1, struct node * B2, int idx) {
     int len = length_of(T1);
     if ((len >= 1) && ((idx == 3 && len == p) || (len > p))) { // idx == 3 means x in B2
         struct node *temp_adr = last_in_list(T1);
@@ -41,7 +54,7 @@ static void REPLACE(static struct node** hash_table, long long p, struct node * 
     }
 };
 
-int ARC (static struct node** hash_table) {
+int ARC (struct node** hash_table) {
     
     //initialization
     
@@ -54,6 +67,7 @@ int ARC (static struct node** hash_table) {
     int len_t1, len_t2, len_b1, len_b2, len_l1, len_l2;
     int idx = -1;
     int number_of_hits;
+    int i;
     
     T1 = NULL;
     T2 = NULL;
@@ -65,7 +79,7 @@ int ARC (static struct node** hash_table) {
     
     //reading data
 
-    int res = scanf("%d %d", &size_c, &quan_req);
+    int res = scanf("%lld %lld", &size_c, &quan_req);
     assert (res == 2);
     
     for (i = 0; i < quan_req; i++) {
@@ -143,7 +157,7 @@ int ARC (static struct node** hash_table) {
             REPLACE(hash_table, p, T1, T2, B1, B2, idx);
             B2 = delete_from_list(addr_of_page);//OK
             T2 = add_to_list(addr_of_page, T2);
-            correct_node(addr_of_page, temp, 1);
+            correct_node(addr_of_page, temp_page, 1);
             continue;
         };
         

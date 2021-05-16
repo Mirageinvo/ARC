@@ -1,4 +1,5 @@
 //LIST (not a paper)
+#pragma once
 
 struct node {
   struct node* next;

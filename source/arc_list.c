@@ -1,4 +1,8 @@
 #include "header_for_list.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <assert.h>
+
 
 struct node* add_to_list(struct node* to_add, struct node* list) {
 	if (list != NULL) {                           //если сам list создан

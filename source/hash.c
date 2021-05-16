@@ -25,6 +25,11 @@ int hash_main() {
 }
 */
 
+#include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "header_for_list.h"
+
 //DON'T FORGET TO WRITE A FUNC, THAT FREES ALL THE HASH
 void create_hash_table(struct node** hash_table);
 int hash_for_idx(int page);

@@ -1,4 +1,6 @@
 //ARC
 
+#include "header_for_list.h"
+
 #pragma once
-void ARC();
+int ARC(struct node ** hash_table);
