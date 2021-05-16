@@ -12,4 +12,3 @@ struct node {
 struct node* add_to_list(struct node* to_add, struct node* list);
 struct node* delete_from_list(struct node* temp_adr);
 int length_of(struct node* list);
-remove_from_cache(int *adress);
