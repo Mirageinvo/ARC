@@ -10,6 +10,6 @@ struct node {
 // idx_of_list T1 = 0; T2 = 1; B1 = 2; B2 = 3;
 
 struct node* add_to_list(struct node* to_add, struct node* list);
-delete_from_list(int data, int* adress);
+struct node* delete_from_list(struct node* temp_adr);
 int length_of(struct node* list);
 remove_from_cache(int *adress);
