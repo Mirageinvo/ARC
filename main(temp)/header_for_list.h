@@ -1,8 +1,8 @@
 //LIST (not a paper)
 
 struct node {
-  int* next;
-  int* prev;
+  struct node* next;
+  struct node* prev;
   int data;
   int idx_of_list;
 };
