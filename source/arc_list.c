@@ -51,9 +51,3 @@ struct node* delete_from_list(struct node* temp_adr) {
 	}
 	return ret;
 }
-
-
-
-
-
-
