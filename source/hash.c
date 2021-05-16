@@ -5,6 +5,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 struct node {
   struct node* next;
@@ -32,6 +33,19 @@ void nulify(struct node* page, struct node** hash_table);
 struct node* create_el (int page_val, struct node** hash_table);
 void free_hash(struct node** hash_table);
 
+int super_power(int p, int num, int mod) {
+  if (p == 1) {
+	return num % mod;
+  }
+  if (p % 2 == 1) {
+	return (super_power(p - 1, num, mod) * num) % mod;
+  }
+  else {
+	int tmp = super_power(p / 2, num, mod) % mod;
+	return (tmp * tmp) % mod;
+  }
+}
+
 
 struct node** create_hash_table(struct node** hash_table) {
   int our_constant_from_nowhere = 23767001; //number of pages in a biggest book in the world, multiplied by 1000 and plus 1
@@ -41,7 +55,7 @@ struct node** create_hash_table(struct node** hash_table) {
 
 
 int hash_for_idx(int page) {
-  int i, k, ans = page, ten_counter = 0;
+  int i, ans = page, ten_counter = 0;
 
   while((ans / 10) != 0){
     ++ten_counter;
@@ -50,9 +64,10 @@ int hash_for_idx(int page) {
   ans = 0;
 
   for(i = 0; i < ten_counter; ++i) {
-    k = page / (10 ^ (ten_counter - i));
-    ans += (k * (101 ^ (ten_counter - i))) % 23767001;
+ //   k = page / (10 ^ (ten_counter - i));
+    ans += (page * (super_power((ten_counter - i), 101, 23767001))) % 23767001;
   }
+  ans %= 23767001;
 
   return ans;
 }
