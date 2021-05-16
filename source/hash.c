@@ -31,7 +31,7 @@ int hash_for_idx(int page);
 struct node* check(struct node* page, struct node** hash_table);
 void nulify(struct node* page, struct node** hash_table);
 struct node* create_el (int page_val, struct node** hash_table);
-
+void free_hash(struct node** hash_table);
 
 
 void create_hash_table(struct node** hash_table) {
@@ -84,3 +84,15 @@ struct node* create_el (int page_val, struct node** hash_table) {
 
   return hash_table[idx];
 }
+
+//Function, that frees all the hash
+void free_hash(struct node** hash_table) {
+  int i, const_from_nowhere = 23767001;
+
+  for(i = 0; i < const_from_nowhere; ++i) {
+    free(hash_table[i]);
+  }
+
+  free(hash_table);
+}
+
