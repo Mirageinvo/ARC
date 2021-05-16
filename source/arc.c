@@ -81,12 +81,23 @@ int ARC (struct node** hash_table) {
 
     int res = scanf("%lld %lld", &size_c, &quan_req);
     assert (res == 2);
+    if(size_c < 0 || quan_req < 0){
+        printf("Error! Invalid value of parameters!");
+        return number_of_hits;
+    }
     
     for (i = 0; i < quan_req; i++) {
         int res = scanf(" %d", &temp_page);
         assert(res == 1);
         
+        if(temp_page < 0){
+            printf("Error! Invalid value of parametercd ..!");
+            break;
+        }
+        
         addr_of_page = check(temp_page, hash_table); // hash!
+        if (addr_of_page != NULL)
+            printf("address and page and idx, iter: %d,  %d %d\n", i,  addr_of_page -> data, addr_of_page -> idx_of_list);
         
         len_t1 = length_of(T1);
         len_b1 = length_of(B1);
@@ -94,6 +105,7 @@ int ARC (struct node** hash_table) {
         len_b2 = length_of(B2);
         len_l1 = len_t1 + len_b1;
         len_l2 = len_t2 + len_b2;
+        printf("lengths: %d %d %d %d\n", len_t1, len_t2, len_b1, len_b2);
         
         // miss in DBL and ARC
         
@@ -124,6 +136,7 @@ int ARC (struct node** hash_table) {
             addr_of_page = create_el(temp_page, hash_table); // make void pointers???
             T1 = add_to_list(addr_of_page, T1);
             correct_node(addr_of_page, temp_page, 0);
+            printf("i'm in miss, iter: %d,  %d\n", i, addr_of_page -> data);
             continue;
         };
         
@@ -132,7 +145,8 @@ int ARC (struct node** hash_table) {
         assert(addr_of_page != NULL);
         idx = (addr_of_page -> idx_of_list);
         if (idx == 0 || idx == 1) {
-             number_of_hits += 1;
+            number_of_hits += 1;
+            printf("i'm in hit, iter: %d, %d %d %d\n", i, number_of_hits, temp_page, addr_of_page -> data);
             if (idx == 0)
                 T1 = delete_from_list(addr_of_page); //OK
             else
@@ -150,6 +164,7 @@ int ARC (struct node** hash_table) {
             B1 = delete_from_list(addr_of_page);
             T2 = add_to_list(addr_of_page, T2);
             correct_node(addr_of_page, temp_page, 1);
+            printf("i'm in hit B1 iter: %d, %d %d %d\n", i, number_of_hits, temp_page, addr_of_page -> data);
             continue;
         };
         if (idx == 3) { //hit in B2
@@ -158,6 +173,7 @@ int ARC (struct node** hash_table) {
             B2 = delete_from_list(addr_of_page);//OK
             T2 = add_to_list(addr_of_page, T2);
             correct_node(addr_of_page, temp_page, 1);
+            printf("i'm in hit B2 iter: %d, %d %d %d\n", i, number_of_hits, temp_page, addr_of_page -> data);
             continue;
         };
         
