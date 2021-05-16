@@ -24,7 +24,7 @@ int length_of(struct node* list) {
 
 struct node* delete_from_list(struct node* temp_adr) {
 	struct node* ret = temp_adr;
-
+	assert(temp_adr != NULL);
 	if (temp_adr->next != NULL && temp_adr->prev != NULL) {
 		while (ret->prev != NULL)
 			ret = ret->prev;
