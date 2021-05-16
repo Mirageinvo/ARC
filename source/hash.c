@@ -59,15 +59,15 @@ struct node** create_hash_table(struct node** hash_table) {
 
 
 int hash_for_idx(int page) {
-    int k, counter = 0, tmp = page;
+    int counter = 0, k = page, tmp = page;
     while (tmp != 0) {
         tmp /= 10;
         counter++;
     }
     assert(tmp == 0);
     for (int i = 0; i < counter; ++i) {
-        k = page / (super_power(counter - i - 1, 10, 23767001));
-        tmp += (k * (super_power(counter - i - 1, 101, 23767001))) % 23767001;
+        tmp += ((k % 10) * (super_power(i, 101, 23767001))) % 23767001;
+        k /= 10;
         tmp %= 23767001;
     }
     return tmp;
