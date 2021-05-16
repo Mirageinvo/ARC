@@ -99,14 +99,8 @@ int ARC (struct node** hash_table) {
         len_b2 = length_of(B2);
         len_l1 = len_t1 + len_b1;
         len_l2 = len_t2 + len_b2;
-        //printf("lengths %d %d %d %d\n", len_t1, len_t2, len_b1, len_b2);
-        //printf("lengths %p %p %p %p\n", T1, T2, B1, B2);
-        
-        /*struct node *skip;
-        skip = check(3, hash_table);
-        if (skip != NULL)
-            printf ("idx of 3 %d\n", skip -> idx_of_list);*/
-        
+        printf("lengths %d %d %d %d %d\n", len_t1, len_t2, len_b1, len_b2, p);
+
         int res = scanf(" %d", &temp_page);
         assert(res == 1);
         
@@ -119,13 +113,11 @@ int ARC (struct node** hash_table) {
         
         // miss in DBL and ARC
         
-        
         if (addr_of_page == NULL) {
             if (len_l1  == size_c) {
                 if (len_t1 < size_c) {
                     temp = last_in_list(B1);
-                    B1 = delete_from_list(temp);
-                    //delete pointer to this page
+                    B1 = delete_from_list(temp)
                     nulify(temp, hash_table);
                     REPLACE(hash_table, p, &T1, &T2, &B1, &B2, idx);
                 }
@@ -136,22 +128,17 @@ int ARC (struct node** hash_table) {
                     correct_node(temp, temp -> data, 2);
                 }
             };
-            //printf("%p\n", B1);
             if (len_l1 < size_c && (len_l1 + len_l2) >= size_c) {
                 if (len_l1 + len_l2 == 2 * size_c) {
                     temp = last_in_list(B2);
                     B2 = delete_from_list(temp);
-                    //delete pointer to this page
                     nulify(temp, hash_table);
                 }
-                //printf("%p\n", B1);
                 REPLACE(hash_table, p, &T1, &T2, &B1, &B2, idx);
-                //printf("%p\n", B1);
             };
-            addr_of_page = create_el(temp_page, hash_table); // make void pointers???
+            addr_of_page = create_el(temp_page, hash_table);
             T1 = add_to_list(addr_of_page, T1);
             correct_node(addr_of_page, temp_page, 0);
-            //printf("%p\n", B1);
             continue;
         };
         
@@ -173,16 +160,11 @@ int ARC (struct node** hash_table) {
         //hit in DBL miss in ARC
         
         if(idx == 2) { //hit in B1
-            //printf("hit_in_B1 %d\n", len_b1);
             p = min(size_c, p + max(1, (len_b2 / len_b1)));
-            //printf("size %d\n", p);
             REPLACE(hash_table, p, &T1, &T2, &B1, &B2, idx);
             B1 = delete_from_list(addr_of_page);
-            //printf("hit_in_B1\n");
             T2 = add_to_list(addr_of_page, T2);
-            //printf("hit_in_B1\n");
             correct_node(addr_of_page, temp_page, 1);
-            //printf("hit_in_B1\n");
             continue;
         };
         if (idx == 3) { //hit in B2

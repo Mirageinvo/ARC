@@ -1,4 +1,0 @@
-arc.c:20:1: warning: non-void function does not return a value in all control paths [-Wreturn-type]
-};
-^
-1 warning generated.
