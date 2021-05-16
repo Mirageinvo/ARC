@@ -2,7 +2,7 @@
 //stdout -> adress of that page + in that adress should be val of that page + I should fill
 //          the hash_table
 
-/*
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -12,7 +12,7 @@ struct node {
   int data;
   int idx_of_list;
 };
-*/
+
 
 /*
 int hash_main() {
@@ -25,15 +25,9 @@ int hash_main() {
 }
 */
 
-#include <assert.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "header_for_list.h"
-
-//DON'T FORGET TO WRITE A FUNC, THAT FREES ALL THE HASH
 void create_hash_table(struct node** hash_table);
 int hash_for_idx(int page);
-struct node* check(struct node* page, struct node** hash_table);
+struct node* check(int page, struct node** hash_table);
 void nulify(struct node* page, struct node** hash_table);
 struct node* create_el (int page_val, struct node** hash_table);
 void free_hash(struct node** hash_table);
@@ -64,8 +58,8 @@ int hash_for_idx(int page) {
 
 
 // This function checks, if an element was used before. Returns pointer to the el, if was, NULL - if else.
-struct node* check(struct node* page, struct node** hash_table) {
-  int idx = hash_for_idx(page->data);
+struct node* check(int page, struct node** hash_table) {
+  int idx = hash_for_idx(page);
 
   if (hash_table[idx] != NULL)
     return hash_table[idx];
