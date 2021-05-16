@@ -13,31 +13,31 @@
 
 //return address of last node in list
 static struct node * last_in_list (struct node* node) {
-    if (*(node -> next) == NULL)
+    if ((node -> next) == NULL)
         return node;
-    node = *(node -> next);
+    node = (node -> next);
 };
 
 //create correct node
 void correct_node(struct node *adr, int data, int idx) {
-    *(adr -> data) = data;
-    *(adr -> idx_of_list) = idx;
+    (adr -> data) = data;
+    (adr -> idx_of_list) = idx;
 }
 
 //special function used in ARC
 static void REPLACE(static struct node** hash_table, long long p, struct node * T1,  struct node * T2, struct node * B1, struct node * B2, int idx) {
     int len = length_of(T1);
     if ((len >= 1) && ((idx == 3 && len == p) || (len > p))) { // idx == 3 means x in B2
-        struct node * temp_adr = last_in_list(T1);
+        struct node *temp_adr = last_in_list(T1);
         T1 = delete_from_list(temp_adr);
         B1 = add_to_list(temp_adr, B1);
-        correct_node(temp_adr, *(temp_adr -> data), 2);
+        correct_node(temp_adr, (temp_adr -> data), 2);
     }
     else {
         struct node * temp_adr = last_in_list(T2);
         T2 = delete_from_list(temp_adr);
         B2 = add_to_list(temp_adr, B2);
-        correct_node(temp_adr, *(temp_adr -> data), 3);
+        correct_node(temp_adr, (temp_adr -> data), 3);
     }
 };
 
@@ -48,7 +48,7 @@ int ARC (static struct node** hash_table) {
     long long size_c; //size of cashe
     long long quan_req; //quantity of requests
     long long p; //very important parameter of system)
-    struct node * T1, T2, B1, B2, temp; //pointers to top of LRU1, top of LRU2, bottom of LRU1, bottom of LRU2
+    struct node *T1, *T2, *B1, *B2, *temp; //pointers to top of LRU1, top of LRU2, bottom of LRU1, bottom of LRU2
     int temp_page;
     struct node * addr_of_page;
     int len_t1, len_t2, len_b1, len_b2, len_l1, len_l2;
@@ -117,7 +117,7 @@ int ARC (static struct node** hash_table) {
         
         assert(addr_of_page != NULL);
         number_of_hits += 1;
-        idx = *(addr_of_page -> idx_of_list);
+        idx = (addr_of_page -> idx_of_list);
         if (idx == 0 || idx == 1) {
             if (idx == 0)
                 T1 = delete_from_list(addr_of_page); //OK
