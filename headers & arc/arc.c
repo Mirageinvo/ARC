@@ -13,19 +13,21 @@
 
 
 //special function used in ARC
-static void REPLACE(long long p, struct node * T1,  struct node * T2, struct node * B1, struct node * B2, int idx) {
+static void REPLACE(static struct node** hash_table, long long p, struct node * T1,  struct node * T2, struct node * B1, struct node * B2, int idx) {
     int len = length_of(T1);
     if ((len >= 1) && ((idx == 3 && len == p) || (len > p))) { // idx == 3 means x in B2
         struct node * temp_adr = last_in_list(T1);
         T1 = delete_from_list(temp_adr);
-        //delete pointer to this page
         B1 = add_to_list(temp_adr, B1);
+        //delete pointer to this page
+        nulify(temp_adr, hash_table);
     }
     else {
         struct node * temp_adr = last_in_list(T2);
         T2 = delete_from_list(temp_adr);
-        //delete pointer to this page
         B2 = add_to_list(temp_adr, B2);
+        //delete pointer to this page
+        nulify(temp_adr, hash_table);
     }
 };
 
@@ -36,14 +38,14 @@ static struct node * last_in_list (struct node * node) {
     node = *(node -> next);
 };
 
-void ARC () {
+void ARC (static struct node** hash_table) {
     
     //initialization
     
     long long size_c; //size of cashe
     long long quan_req; //quantity of requests
     long long p; //very important parameter of system)
-    struct node * T1, T2, B1, B2; //pointers to top of LRU1, top of LRU2, bottom of LRU1, bottom of LRU2
+    struct node * T1, T2, B1, B2, temp; //pointers to top of LRU1, top of LRU2, bottom of LRU1, bottom of LRU2
     int temp_page;
     struct node * addr_of_page;
     int len_t1, len_t2, len_b1, len_b2, len_l1, len_l2;
@@ -56,8 +58,6 @@ void ARC () {
     p = 0;
     addr_of_page = NULL;
     
-    
-    
     //reading data
 
     int res = scanf("%d %d", &size_c, &quan_req);
@@ -67,7 +67,7 @@ void ARC () {
         int res = scanf(" %d", &temp_page);
         assert(res == 1);
         
-        addr_of_page = adr_of_page_hash (temp_page); // hash! 
+        addr_of_page = check(temp_page, hash_table); // hash!
         
         len_t1 = length_of(T1);
         len_b1 = length_of(B1);
@@ -81,30 +81,38 @@ void ARC () {
         if (addr_of_page == NULL) {
             if (len_l1  == size_c) {
                 if (len_t1 < size_c) {
-                    B1 = delete_from_list(last_in_list(B1));
+                    temp = last_in_list(B1);
+                    B1 = delete_from_list(temp);
                     //delete pointer to this page
-                    REPLACE(p, T1, T2, B1, B2, idx);
+                    nulify(temp, hash_table);
+                    REPLACE(hash_table, p, T1, T2, B1, B2, idx);
                 }
                 else {
-                    T1 = delete_from_list(last_in_list(T1));
+                    temp = last_in_list(T1);
+                    T1 = delete_from_list(temp);
+                    nulify(temp, hash_table);
                 }
             };
             if (len_l1 < size_c && (len_l1 + len_l2) >= size_c) {
-                if (len_l1 + len_l2 == 2 * size_c)
-                    B2 = delete_from_list(last_in_list(B2));
+                if (len_l1 + len_l2 == 2 * size_c) {
+                    temp = last_in_list(B2);
+                    B2 = delete_from_list(temp);
                     //delete pointer to this page
-                REPLACE(p, T1, T2, B1, B2, idx);
+                    nulify(temp, hash_table);
+                }
+                REPLACE(hash_table, p, T1, T2, B1, B2, idx);
             };
-            addr_of_page = create_hash(temp_page, sizeof(struct node)); // make void pointers??
+            addr_of_page = create_el(temp_page, hash_table); // make void pointers???
+            //!!!!!!!!!!!!!!!!!
             T1 = add_to_list(addr_of_page, T1);
+            //!!!!!!!!!!!!!!!!!!!!!!
             continue;
         };
         
         //hit in ARC and DBL
         
         assert(addr_of_page != NULL);
-        idx = *(addr_of_page -> idx_of_list); //will it work? don't know, not sure. now must work
-        
+        idx = *(addr_of_page -> idx_of_list);
         if (idx == 0 || idx == 1) {
             if (idx == 0)
                 T1 = delete_from_list(addr_of_page); //OK
@@ -118,14 +126,14 @@ void ARC () {
         
         if(idx == 2) { //hit in B1
             p = min(size_c, p + max(1, (len_b2 / len_b1)));
-            REPLACE(p, T1, T2, B1, B2, idx);
+            REPLACE(hash_table, p, T1, T2, B1, B2, idx);
             T2 = add_to_list(addr_of_page, T2);
             B1 = delete_from_list(addr_of_page);//OK
             continue;
         };
         if (idx == 3) { //hit in B2
             p = max(0, p - max((len_b1 / len_b2), 1));
-            REPLACE(p, T1, T2, B1, B2, idx);
+            REPLACE(hash_table, p, T1, T2, B1, B2, idx);
             T2 = add_to_list(addr_of_page, T2);
             B2 = delete_from_list(addr_of_page);//OK
             continue;
