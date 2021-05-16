@@ -130,9 +130,9 @@ int ARC (struct node** hash_table) {
         //hit in ARC and DBL
         
         assert(addr_of_page != NULL);
-        number_of_hits += 1;
         idx = (addr_of_page -> idx_of_list);
         if (idx == 0 || idx == 1) {
+             number_of_hits += 1;
             if (idx == 0)
                 T1 = delete_from_list(addr_of_page); //OK
             else
