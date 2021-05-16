@@ -11,7 +11,7 @@ FILE *create_test() {
     int quan_req;
     int flag;
     int temp_page;
-    char *name;
+    char name[1200];
     FILE *test;
     
     int i;
@@ -23,7 +23,6 @@ FILE *create_test() {
     int res = scanf("%s", name);
     assert(res == 1);
     
-    printf("OK");
     test = fopen(name, "w");
     
     printf("input a size of cache\n");
@@ -40,18 +39,20 @@ FILE *create_test() {
     res = scanf("%d\n", &flag);
     assert(res == 1);
     
-    for(i = 0; i < quan_req; i++) {
-        if (flag != 0) {
+    if(flag != 0) {
+        for(i = 0; i < quan_req; i++) {
             res = scanf("%d", &temp_page);
             assert(res == 1);
             fprintf(test, "%d ", temp_page);
         }
-        else {
-            temp_page = (rand()/ 100000) + 1;
-            //printf("%d\n", temp_page);
-            fprintf(test, "%d ", temp_page);
-        }
-    };
+    }
+    else {
+        for(i = 0; i < quan_req; i++) {
+                temp_page = (rand()/ 1000000) + 1;
+                //printf("%d\n", temp_page);
+                fprintf(test, "%d ", temp_page);
+            }
+    }
     fclose(test);
     return test;
 }
@@ -64,7 +65,7 @@ int main() {
     while (i ) {
         temp = create_test();
         if (temp != NULL)
-            printf("OK");
+            printf("OK\n");
         scanf("%d", &i);
     }
     return 0;

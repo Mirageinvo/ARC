@@ -174,8 +174,14 @@ int ARC (struct node** hash_table) {
             correct_node(addr_of_page, temp_page, 1);
             continue;
         };
-        
+
     };
+    free(T1);
+    free(T2);
+    free(B1);
+    free(B2);
+    free(addr_of_page);
+    free(temp);
     return number_of_hits;
 };
 
