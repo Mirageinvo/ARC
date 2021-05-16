@@ -30,7 +30,7 @@ void create_hash_table(struct node** hash_table);
 int hash_for_idx(int page);
 struct node* check(struct node* page, struct node** hash_table);
 void nulify(struct node* page, struct node** hash_table);
-void create_el (int page_val, struct node** hash_table);
+struct node* create_el (int page_val, struct node** hash_table);
 
 
 
@@ -40,7 +40,6 @@ void create_hash_table(struct node** hash_table) {
 }
 
 
-//BETA VERSION!!! I'l rewrite this one
 int hash_for_idx(int page) {
   int i, k, ans = page, ten_counter = 0;
 
@@ -76,12 +75,12 @@ void nulify(struct node* page, struct node** hash_table) {
   hash_table[idx] = NULL;
 }
 
-//?????????????????????????????????????????????????????????????????
-//Should I return a pointer to the created element
-void create_el (int page_val, struct node** hash_table) {
+
+struct node* create_el (int page_val, struct node** hash_table) {
   int idx = hash_for_idx(page_val);
   hash_table[idx] = (struct node*)malloc(sizeof(struct node));
-  hash_table[idx]->data = page_val;
   hash_table[idx]->prev = NULL;
   hash_table[idx]->next = NULL;
+
+  return hash_table[idx];
 }
