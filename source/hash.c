@@ -55,21 +55,18 @@ struct node** create_hash_table(struct node** hash_table) {
 
 
 int hash_for_idx(int page) {
-  int i, ans = page, ten_counter = 0;
-
-  while((ans / 10) != 0){
-    ++ten_counter;
-    ans = ans / 10;
-  }
-  ans = 0;
-
-  for(i = 0; i < ten_counter; ++i) {
- //   k = page / (10 ^ (ten_counter - i));
-    ans += (page * (super_power((ten_counter - i), 101, 23767001))) % 23767001;
-  }
-  ans %= 23767001;
-
-  return ans;
+    int k, counter = 0, tmp = page;
+    while (tmp != 0) {
+        tmp /= 10;
+        counter++;
+    }
+    assert(tmp == 0);
+    for (int i = 0; i < counter; ++i) {
+        k = page / (super_power(counter - i - 1, 10, 23767001));
+        tmp += (k * (super_power(counter - i - 1, 101, 23767001))) % 23767001;
+        tmp %= 23767001;
+    }
+    return tmp;
 }
 
 
