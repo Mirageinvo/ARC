@@ -35,16 +35,19 @@ struct node* create_el (int page_val, struct node** hash_table);
 void free_hash(struct node** hash_table);
 
 int super_power(int p, int num, int mod) {
-  if (p == 1) {
-	return num % mod;
-  }
-  if (p % 2 == 1) {
-	return (super_power(p - 1, num, mod) * num) % mod;
-  }
-  else {
-	int tmp = super_power(p / 2, num, mod) % mod;
-	return (tmp * tmp) % mod;
-  }
+    if (p == 0) {
+        return 1;
+    }
+    if (p == 1) {
+        return num % mod;
+    }
+    if (p % 2 == 1) {
+        return (super_power(p - 1, num, mod) * num) % mod;
+    }
+    else {
+        int tmp = super_power(p / 2, num, mod) % mod;
+        return (tmp * tmp) % mod;
+    }
 }
 
 
