@@ -74,14 +74,14 @@ int ARC (struct node** hash_table) {
     int number_of_hits;
     long long i;
     
-    T1 = calloc(1, sizeof(struct node));
-    T2 = calloc(1, sizeof(struct node));
-    B1 = calloc(1, sizeof(struct node));
-    B2 = calloc(1, sizeof(struct node));
+    T1 = NULL;
+    T2 = NULL;
+    B1 = NULL;
+    B2 = NULL;
     p = 0;
     number_of_hits = 0;
-    addr_of_page = calloc(1, sizeof(struct node));
-    temp = calloc(1, sizeof(struct node));
+    addr_of_page = NULL;
+    temp = NULL;
     
     //reading data
 
@@ -177,12 +177,6 @@ int ARC (struct node** hash_table) {
         };
 
     };
-    free(T1);
-    free(T2);
-    free(B1);
-    free(B2);
-    free(addr_of_page);
-    free(temp);
     return number_of_hits;
 };
 
