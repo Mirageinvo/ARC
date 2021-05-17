@@ -181,4 +181,3 @@ int ARC (struct node** hash_table) {
     return number_of_hits;
 };
 
-
