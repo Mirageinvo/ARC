@@ -1,4 +1,5 @@
 //HASH
+#pragma once
 
 struct node ** create_hash_table();
 int hash_for_idx(int page);
