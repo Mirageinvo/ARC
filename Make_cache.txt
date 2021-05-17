@@ -1,10 +1,10 @@
 CC = gcc
 CFLAGS = -g -Wall -std=c99 -I include
 SRC = arc.c arc_list.c hash.c main.c
-HEADERS = header_for_arc.h header_for_hash.h header_for_list.h
+HEADERS = header_for_ARC.h header_for_hash.h header_for_list.h
 OBJECTS = $(SOURCES:.c=.o)
 
-arc.o: source/arc.c includes/header_for_arc.h 
+arc.o: source/arc.c includes/header_for_ARC.h 
 	$(CC) $(CFLAGS) source/arc.c -c -o arc.o
 
 hash.o: source/hash.c includes/header_for_hash.h
