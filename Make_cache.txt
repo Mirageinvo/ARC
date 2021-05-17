@@ -10,15 +10,15 @@ arc.o: source/arc.c includes/header_for_arc.h
 hash.o: source/hash.c includes/header_for_hash.h
 	$(CC) $(CFLAGS) source/hash.c -c -o hash.o
 
-lists.o: source/arc_list.c includes/header_for_list.h
+arc_list.o: source/arc_list.c includes/header_for_list.h
 	$(CC) $(CFLAGS) source/arc_list.c -c -o list.o
 
 main.o: main.c
 	$(CC) $(CFLAGS) main.c -c -o main.o
 
 .PHONY: all
-all: main.o list.o hash.o arc.o
-	$(CC) $(CFLAGS) main.o list.o hash.o arc.o -o main
+all: main.o arc_list.o hash.o arc.o
+	$(CC) $(CFLAGS) main.o arc_list.o hash.o arc.o -o main
 
 
 .PHONY: clean
