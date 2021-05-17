@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "header_for_list.h"
-#include "header_for_hash.h"
-#include "header_for_ARC.h"
+#include "includes/header_for_list.h"
+#include "includes/header_for_hash.h"
+#include "includes/header_for_ARC.h"
 
 int main () {
     int number_of_hits;
