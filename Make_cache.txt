@@ -4,13 +4,13 @@ SRC = arc.c arc_list.c hash.c main.c
 HEADERS = header_for_arc.h header_for_hash.h header_for_list.h
 OBJECTS = $(SOURCES:.c=.o)
 
-arc.o: source/arc.c include/header_for_arc.h 
+arc.o: source/arc.c includes/header_for_arc.h 
 	$(CC) $(CFLAGS) source/arc.c -c -o arc.o
 
-hash.o: source/hash.c include/header_for_hash.h
+hash.o: source/hash.c includes/header_for_hash.h
 	$(CC) $(CFLAGS) source/hash.c -c -o hash.o
 
-lists.o: source/arc_list.c include/header_for_list.h
+lists.o: source/arc_list.c includes/header_for_list.h
 	$(CC) $(CFLAGS) source/arc_list.c -c -o list.o
 
 main.o: main.c
