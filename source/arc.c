@@ -63,9 +63,9 @@ int ARC (struct node** hash_table) {
     
     //initialization
     
-    long long size_c; //size of cashe
-    long long quan_req; //quantity of requests
-    long long p; //very important parameter of system)
+    int size_c = 0; //size of cashe
+    int quan_req = 0; //quantity of requests
+    int p ; //very important parameter of system)
     struct node *T1, *T2, *B1, *B2, *temp; //pointers to top of LRU1, top of LRU2, bottom of LRU1, bottom of LRU2
     int temp_page;
     struct node * addr_of_page;
@@ -73,7 +73,7 @@ int ARC (struct node** hash_table) {
     int idx = -1;
     int number_of_hits;
     int res = 2;
-    long long i;
+    int i;
     
     T1 = NULL;
     T2 = NULL;
@@ -86,8 +86,8 @@ int ARC (struct node** hash_table) {
     
     //reading data
 
-    res = scanf("%lld %lld", &size_c, &quan_req);
-    assert (res == 2);
+    res = scanf("%d %d", &size_c, &quan_req);
+
     if(size_c < 0 || quan_req < 0){
         printf("Error! Invalid value of parameters!");
         return number_of_hits;
