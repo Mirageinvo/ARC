@@ -27,7 +27,7 @@ int hash_main() {
 }
 */
 
-struct node** create_hash_table(struct node** hash_table);
+struct node** create_hash_table();
 int hash_for_idx(int page);
 struct node* check(int page, struct node** hash_table);
 void nulify(struct node* page, struct node** hash_table);
@@ -51,7 +51,8 @@ int super_power(int p, int num, int mod) {
 }
 
 
-struct node** create_hash_table(struct node** hash_table) {
+struct node** create_hash_table() {
+  struct node** hash_table;
   int our_constant_from_nowhere = 23767001; //number of pages in a biggest book in the world, multiplied by 1000 and plus 1
   hash_table = (struct node**)calloc(our_constant_from_nowhere, sizeof(struct node*));
   return hash_table;
