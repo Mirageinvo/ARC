@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include "header_for_list.h"
+#include "../../includes/header_for_list.h"
 
 struct node* add_to_list(struct node* to_add, struct node* list) {
 	if (list != NULL) {                           //если сам list создан
