@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g -Wall -std=c99 -I include
+CFLAGS = -g -Wall -std=c99 -I includes
 SRC = arc.c arc_list.c hash.c main.c
 HEADERS = header_for_ARC.h header_for_hash.h header_for_list.h
 OBJECTS = $(SRC:.c=.o)
