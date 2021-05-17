@@ -2,7 +2,7 @@
 #include <math.h>
 #include <time.h>
 #include "../../includes/headers_for_hash.h"
-#include "../../includes/header_for_test.h"
+#include "header_for_test.h"
 
 
 //This test is made not by randomizer
