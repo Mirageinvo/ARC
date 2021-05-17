@@ -16,12 +16,10 @@ arc_list.o: source/arc_list.c includes/header_for_list.h
 main.o: main.c
 	$(CC) $(CFLAGS) main.c -c -o main.o
 
-.PHONY: all
+.PHONY: all clean
 all: main.o arc_list.o hash.o arc.o
 	$(CC) $(CFLAGS) main.o arc_list.o hash.o arc.o -o main
 
-
-.PHONY: clean
 clean:
 	rm -r -f $(OBJECTS)
 	rm -f main
