@@ -7,13 +7,9 @@
 #include <stdlib.h>
 #include <math.h>
 #include <assert.h>
+#include "../includes/header_for_list.h"
+#include "../includes/header_for_hash.h"
 
-struct node {
-  struct node* next;
-  struct node* prev;
-  int data;
-  int idx_of_list;
-};
 
 
 /*
@@ -27,12 +23,6 @@ int hash_main() {
 }
 */
 
-struct node** create_hash_table();
-int hash_for_idx(int page);
-struct node* check(int page, struct node** hash_table);
-void nulify(struct node* page, struct node** hash_table);
-struct node* create_el (int page_val, struct node** hash_table);
-void free_hash(struct node** hash_table);
 
 int super_power(int p, int num, int mod) {
     if (p == 0) {

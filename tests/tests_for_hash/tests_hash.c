@@ -1,11 +1,9 @@
 #include <stdio.h>
 #include <math.h>
 #include <time.h>
-#include <headers_for_hash.h>
+#include "../../includes/headers_for_hash.h"
+#include "../../includes/header_for_test.h"
 
-
-void test_for_hash_for_idx();
-void test_for_super_power();
 
 //This test is made not by randomizer
 void test_for_hash_for_idx() {
