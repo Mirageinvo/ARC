@@ -45,17 +45,13 @@ static void REPLACE(struct node** hash_table, long long p, struct node ** T1,  s
         struct node *temp_adr = last_in_list( *T1);
         *T1 = delete_from_list(temp_adr);
         *B1 = add_to_list(temp_adr, *B1);
-        //printf("%p %p \n", *B1, temp_adr);
         correct_node(temp_adr, (temp_adr -> data), 2);
-        //printf("%p %p \n", *B1, temp_adr);
-        //printf("REPLACE 1\n");
     }
     else {
         struct node * temp_adr = last_in_list( *T2);
         *T2 = delete_from_list(temp_adr);
         *B2 = add_to_list(temp_adr, *B2);
         correct_node(temp_adr, (temp_adr -> data), 3);
-        //printf("REPLACE 2\n");
     };
 };
 
@@ -125,8 +121,7 @@ int ARC (struct node** hash_table) {
                 else {
                     temp = last_in_list(T1);
                     T1 = delete_from_list(temp);
-                    B1 = add_to_list(temp, B1);
-                    correct_node(temp, temp -> data, 2);
+                    nulify(temp, hash_table);
                 }
             };
             if (len_l1 < size_c && (len_l1 + len_l2) >= size_c) {
