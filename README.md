@@ -4,6 +4,10 @@ Use `make -f Make_cache.txt all ` to build ARC cache program. Run program by typ
 
 ## Made by:
 ### Александр Мишин
+![alt 
+text](https://github.com/includealex/ARC/blob/photos/mF7fHYpPol4.jpg)
 ### Андрей Малинин
 ### Софья Сухова
+![alt
+text](https://github.com/includealex/ARC/blob/photos/lesnaya-sonya.jpg)
 
