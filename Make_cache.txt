@@ -11,7 +11,7 @@ hash.o: source/hash.c includes/header_for_hash.h
 	$(CC) $(CFLAGS) source/hash.c -c -o hash.o
 
 arc_list.o: source/arc_list.c includes/header_for_list.h
-	$(CC) $(CFLAGS) source/arc_list.c -c -o list.o
+	$(CC) $(CFLAGS) source/arc_list.c -c -o arc_list.o
 
 main.o: main.c
 	$(CC) $(CFLAGS) main.c -c -o main.o
