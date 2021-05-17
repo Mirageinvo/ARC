@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include <assert.h>
-#include "header_for_list.h"
-#include "list_test_header.h"
+#include "../../includes/header_for_list.h"
+#include "../../includes/list_test_header.h"
 
 int test_for_length_of() {
     int ans, tmp;
