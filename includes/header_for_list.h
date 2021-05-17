@@ -1,4 +1,3 @@
-//LIST (not a paper)
 #pragma once
 
 struct node {
