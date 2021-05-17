@@ -8,9 +8,9 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
-#include "includes/header_for_list.h"
-#include "includes/header_for_hash.h"
-#include "includes/header_for_ARC.h"
+#include "../includes/header_for_list.h"
+#include "../includes/header_for_hash.h"
+#include "../includes/header_for_ARC.h"
 
 //return address of last node in list
 static struct node * last_in_list (struct node* node) {
